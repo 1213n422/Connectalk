@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>커넥톡</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#f5f2ea">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300;400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=7">
+</head>
+<body>
+<!-- 손으로 그린 듯 떨리는 선 + 종이컵 그림 (모든 컵이 이 그림을 가져다 쓴다) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="wobble" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="4" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="3.2"/>
+    </filter>
+    <pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(35)">
+      <line x1="0" y1="0" x2="0" y2="7" stroke="#1b1a19" stroke-width="1.6" opacity=".55"/>
+    </pattern>
+    <symbol id="cupSym" viewBox="0 0 300 260">
+      <!-- 종이컵을 입구 쪽에서 본 모습: 큰 입구(앞), 작은 바닥(뒤). 실은 바닥 가운데에서 나간다 -->
+      <path d="M104 52 C90 82 60 130 40 172 A110 70 0 0 0 260 172 C240 130 210 82 196 52 A46 18 0 0 0 104 52 Z" fill="#fffdf7" stroke="#1b1a19" stroke-width="4" stroke-linejoin="round"/>
+      <path d="M78 100 Q150 128 222 100 L238 132 Q150 166 62 132 Z" fill="url(#hatch)" stroke="#1b1a19" stroke-width="3"/>
+      <ellipse cx="150" cy="52" rx="46" ry="18" fill="#fffdf7" stroke="#1b1a19" stroke-width="4"/>
+      <circle cx="150" cy="50" r="5" fill="#1b1a19"/>
+      <ellipse cx="150" cy="172" rx="110" ry="70" fill="#fffdf7" stroke="#1b1a19" stroke-width="4.5"/>
+      <ellipse cx="150" cy="176" rx="96" ry="57" fill="#2b2a28"/>
+      <path d="M92 168 Q150 136 208 168" stroke="#fffdf7" stroke-width="2" fill="none" opacity=".25"/>
+      <path d="M104 190 Q150 164 196 190" stroke="#fffdf7" stroke-width="2" fill="none" opacity=".18"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div id="logo">Connectalk</div>
+<main id="stage">
+  <canvas id="rope"></canvas>
+
+  <!-- 저쪽 끝: 나를 뺀 세 명의 종이컵 -->
+  <div id="hub">
+    <svg class="hubCup"><use href="#cupSym"/></svg>
+  </div>
+
+  <!-- 내 종이컵 -->
+  <div id="cup" role="button" tabindex="0" aria-label="종이컵">
+    <svg viewBox="0 0 300 260"><use href="#cupSym"/><g id="tally"></g></svg>
+    <div id="ring"></div>
+  </div>
+
+  <!-- 쪽지 (읽기/쓰기) -->
+  <section id="paper" hidden>
+    <i class="tape"></i>
+    <div id="dots"></div>
+    <div id="paperBody"></div>
+  </section>
+
+  <div id="hint"></div>
+  <div id="toast"></div>
+  <div id="sent"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="50"/><path d="M34 62 L53 80 L88 40"/></svg><b>모두에게 전달됐어요</b></div>
+</main>
+
+<div id="camBox" hidden><video id="cam" playsinline muted></video><b id="camState"></b><b id="camPhase"></b></div>
+
+<script src="js/store.js?v=7"></script>
+<script src="js/voice.js?v=7"></script>
+<script src="js/gesture.js?v=7"></script>
+<script src="js/app.js?v=7"></script>
+</body>
+</html>
